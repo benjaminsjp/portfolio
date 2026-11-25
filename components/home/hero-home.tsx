@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils';
 
 function HeroHome() {
 	return (
-		<section id='home' className='bg-secondary/50 pt-32'>
-			<div className='container mx-auto grid grid-cols-1 items-center gap-20 px-4 py-20 lg:grid-cols-2'>
+		<section id='home' className='bg-secondary/50 '>
+			<div className='container mx-auto grid grid-cols-1 items-center gap-20 px-4 pt-32 pb-20 lg:py-6 lg:grid-cols-2'>
 				<div className='flex min-w-0 flex-col gap-4'>
 					<h1 className='mb-4 max-w-3xl text-6xl leading-tight font-bold'>
 						Benjamin Pedersen
