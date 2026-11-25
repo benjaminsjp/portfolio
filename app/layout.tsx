@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Newsreader } from "next/font/google";
+import { Schibsted_Grotesk, Newsreader } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/header/navigation";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const schibstedGrotesk = Schibsted_Grotesk({
+  variable: "--font-schibsted-grotesk",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const newsreader = Newsreader({
@@ -26,9 +28,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${newsreader.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${schibstedGrotesk.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <header className="fixed top-6 z-50 w-full">
+          <Navigation />
+        </header>
         {children}
       </body>
     </html>
