@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
-import { Schibsted_Grotesk, Newsreader, Hanken_Grotesk } from 'next/font/google';
+import {
+	Schibsted_Grotesk,
+	Newsreader,
+	Hanken_Grotesk,
+} from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/header/navigation';
 
-const hankenGrotesk = Hanken_Grotesk({ 
+const hankenGrotesk = Hanken_Grotesk({
 	variable: '--font-hanken-grotesk',
 	subsets: ['latin'],
 	weight: ['400', '500', '600', '700'],
@@ -32,7 +36,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 			className={`${hankenGrotesk.variable} ${newsreader.variable} h-full antialiased`}
 		>
 			<body className='min-h-full flex flex-col bg-background text-foreground'>
-				<header className='fixed top-6 z-50 w-full'>
+				<header
+					className='fixed top-6 z-50 w-full'
+					style={{ viewTransitionName: 'site-header' }}
+				>
 					<Navigation />
 				</header>
 				{children}

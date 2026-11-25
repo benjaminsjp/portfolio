@@ -52,13 +52,13 @@ function CategoryBody({
 	progress?: number[];
 }) {
 	return (
-		<div className='grid w-full grid-cols-1 items-start gap-30 md:grid-cols-2'>
+		<div className='grid w-full grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-30'>
 			<div className='flex flex-col gap-6'>
 				<div className='flex items-center gap-3'>
 					<Sparkle className='size-6 text-primary' />
 					<p className='text-lg text-primary uppercase'>Ferdigheter</p>
 				</div>
-				<h2 className='text-6xl font-bold'>{category.name}</h2>
+				<h2 className='text-4xl font-bold md:text-6xl'>{category.name}</h2>
 				<p className='text-xl text-muted-foreground'>{category.description}</p>
 				{progress ?
 					<SkillsProgress progress={progress} />
@@ -99,18 +99,23 @@ function SkillsProgress({ progress }: { progress: number[] }) {
 
 function Skills() {
 	const trackRef = useRef<HTMLDivElement>(null);
+	const stageRef = useRef<HTMLDivElement>(null);
 	const [scrollT, setScrollT] = useState(0);
 
 	useEffect(() => {
 		const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const coarse = window.matchMedia('(pointer: coarse)');
+		const narrow = window.matchMedia('(max-width: 767px)');
 		const root = document.documentElement;
 		let frame = 0;
 
 		const applySnap = () => {
-			root.style.setProperty(
-				'scroll-snap-type',
-				motion.matches ? 'none' : 'y proximity',
-			);
+			if (motion.matches || coarse.matches || narrow.matches) {
+				root.style.removeProperty('scroll-snap-type');
+				return;
+			}
+
+			root.style.setProperty('scroll-snap-type', 'y proximity');
 		};
 
 		const update = () => {
@@ -120,16 +125,16 @@ function Skills() {
 			}
 
 			const track = trackRef.current;
-			if (!track) return;
+			const stage = stageRef.current;
+			if (!track || !stage) return;
 
-			const rect = track.getBoundingClientRect();
-			const range = rect.height - window.innerHeight;
+			const range = track.offsetHeight - stage.offsetHeight;
 			if (range <= 0) {
 				setScrollT(0);
 				return;
 			}
 
-			const next = clampProgress(-rect.top / range);
+			const next = clampProgress(-track.getBoundingClientRect().top / range);
 			setScrollT((prev) => (prev === next ? prev : next));
 		};
 
@@ -147,6 +152,8 @@ function Skills() {
 		window.addEventListener('resize', onScroll);
 		motion.addEventListener('change', applySnap);
 		motion.addEventListener('change', update);
+		coarse.addEventListener('change', applySnap);
+		narrow.addEventListener('change', applySnap);
 
 		return () => {
 			root.style.removeProperty('scroll-snap-type');
@@ -155,6 +162,8 @@ function Skills() {
 			window.removeEventListener('resize', onScroll);
 			motion.removeEventListener('change', applySnap);
 			motion.removeEventListener('change', update);
+			coarse.removeEventListener('change', applySnap);
+			narrow.removeEventListener('change', applySnap);
 		};
 	}, []);
 
@@ -169,7 +178,7 @@ function Skills() {
 	);
 
 	return (
-		<section id='skills' className='scroll-mt-32'>
+		<section id='skills'>
 			<div className='hidden container mx-auto flex-col gap-16 px-4 pb-20 motion-reduce:flex'>
 				{skillCategories.map((category) => (
 					<CategoryBody key={category.name} category={category} />
@@ -179,7 +188,7 @@ function Skills() {
 			<div
 				ref={trackRef}
 				className='relative motion-reduce:hidden'
-				style={{ height: `${COUNT * RUNWAY_VH}vh` }}
+				style={{ height: `${COUNT * RUNWAY_VH}svh` }}
 			>
 				{skillCategories.map((_, index) =>
 					index === 0 ? null : (
@@ -188,13 +197,16 @@ function Skills() {
 							aria-hidden
 							className='pointer-events-none absolute left-0 h-px w-px'
 							style={{
-								top: `calc(${restRaw(index) / COUNT} * (100% - 100lvh))`,
+								top: `calc(${restRaw(index) / COUNT} * (100% - 100svh))`,
 								scrollSnapAlign: 'start',
 							}}
 						/>
 					),
 				)}
-				<div className='sticky top-0 flex h-lvh items-center bg-background'>
+				<div
+					ref={stageRef}
+					className='sticky top-0 flex h-svh items-start bg-background pt-20 md:items-center md:pt-0'
+				>
 					<div className='relative container mx-auto w-full px-4'>
 						<div className='relative'>
 							<div className='invisible' aria-hidden>

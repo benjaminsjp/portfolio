@@ -34,7 +34,7 @@ function Projects() {
 												src={project.image}
 												alt={project.imageAlt}
 												fill
-												className='rounded-t-xl object-cover group-hover/card:scale-105 transition-transform duration-300'
+												className='rounded-t-xl object-cover md:group-hover/card:scale-105 md:transition-transform md:duration-300'
 											/>
 										</div>
 									</ViewTransition>
@@ -64,10 +64,7 @@ function Projects() {
 												featured
 											/>
 										</div>
-										<Button
-											variant='outline'
-											className='mt-6'
-										>
+										<Button variant='outline' className='mt-6'>
 											Mer om prosjektet <ArrowRight className='size-4' />
 										</Button>
 									</CardContent>
