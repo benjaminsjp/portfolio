@@ -36,10 +36,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 			className={`${hankenGrotesk.variable} ${newsreader.variable} h-full antialiased`}
 		>
 			<body className='min-h-full flex flex-col bg-background text-foreground'>
-				<header
-					className='fixed top-6 z-50 w-full'
-					style={{ viewTransitionName: 'site-header' }}
-				>
+				<header className='fixed top-6 z-50 w-full'>
 					<Navigation />
 				</header>
 				{children}

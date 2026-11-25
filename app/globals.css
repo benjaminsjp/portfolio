@@ -127,24 +127,18 @@ body {
 		var(--duration-move) ease-in-out both slide;
 }
 
-::view-transition-group(site-header) {
-	animation: none;
-	z-index: 100;
-}
-
-::view-transition-old(site-header) {
-	display: none;
-}
-
-::view-transition-new(site-header) {
-	animation: none;
-}
-
 @media (max-width: 767px) {
 	::view-transition-old(.nav-forward),
 	::view-transition-new(.nav-forward),
 	::view-transition-old(.nav-back),
-	::view-transition-new(.nav-back) {
+	::view-transition-new(.nav-back),
+	::view-transition-group(.morph),
+	::view-transition-image-pair(.morph),
+	::view-transition-old(.morph),
+	::view-transition-new(.morph),
+	::view-transition-group(.text-morph),
+	::view-transition-old(.text-morph),
+	::view-transition-new(.text-morph) {
 		animation: none;
 	}
 }
