@@ -62,6 +62,7 @@ body {
 
 ::selection {
 	background: #e8e0d4;
+	color: var(--primary-foreground);
 }
 
 @keyframes fade {

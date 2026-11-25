@@ -13,6 +13,7 @@ export type Project = {
 	about: string;
 	features: { name: string; description: string }[];
 	link: string;
+	github: string;
 	tech: TechItem[];
 };
 
@@ -25,7 +26,7 @@ export const projects: Project[] = [
 		image: '/assets/images/pan-showcase.png',
 		imageAlt: 'Forhåndsvisning av Pån - Få fart på oppgavelisten din.',
 		summary:
-			'Pån er et fokusert arbeidsområde for å flytte oppgaver på en Kanban-tavle, gruppere dem i sidepanelet, og åpne delte org-tavler når du trenger mer enn en solo-liste.',
+			'Pån er en app som lar deg få styr på oppgaver og prosjekter og samhandle med andre i sanntid.',
 		about:
 			'Jeg startet Pån som et sideprosjekt for å lære meg mer om Next.js og Tailwind CSS. Jeg har også lært mye om PostgreSQL og Drizzle ORM. Samtidig har jeg utviklet min egen kompetanse innen design og brukergrensesnitt.',
 		features: [
@@ -47,6 +48,7 @@ export const projects: Project[] = [
 		],
 
 		link: 'https://pan-omega-dusky.vercel.app/',
+		github: 'https://github.com/benjaminsjp/Todo-app',
 		tech: [
 			{ name: 'Next.js', priority: 1, color: '#0057ff' },
 			{ name: 'TypeScript', priority: 2, color: '#58a6e8' },
@@ -65,16 +67,28 @@ export const projects: Project[] = [
 		imageAlt:
 			'Forhåndsvisning av Kodekassa - Dokumentasjon for diverse WordPress-plugins.',
 		summary:
-			'Dokumentasjon for diverse WordPress-plugins, med versjoner, nedlastinger og søk i ett sted. Deriblant flatsome-css-snippets.',
+			'Kodekassa er en side som samler dokumentasjon for diverse WordPress-plugins jeg har laget.',
 		about:
-			'Kodekassa samler byråets plugin-dokumentasjon og CSS-snippets. Innholdet skrives i MDX, og plugin-nedlastinger peker på GitHub Releases.',
+			'Med mange plugins og lite kontroll kom jeg frem til at det var på tide å lage en side som samler dokumentasjon og nedlastinger på ett sted. Da ble Kodekassa født. Enklere for meg og for mine kollegaer å finne og bruke mine plugins.',
 		features: [
 			{
-				name: 'Versjonsstyring',
-				description: 'Se versjoner av plugins og CSS-snippets.',
+				name: 'Versjonskontroll',
+				description:
+					'For å holde oversikt, og kunne hoppe tilbake en versjon der det trengs, har jeg lagt til versjonskontroll. Dette gjør det enkelt å se hva som er nytt i en versjon, og hva som har blitt fikset.',
+			},
+			{
+				name: 'Nedlastinger',
+				description:
+					'Plugins lastes opp til GitHub Releases, og lenkes til via kodekassa. Den nyeste realeasen vil også være enkelt tilgjengelig øverst på siden.',
+			},
+			{
+				name: 'Dokumentasjon',
+				description:
+					'Les hvordan pluginet fungerer og hvordan det kan brukes. Man finner også ulike shortcodes, klasser og funksjoner for det gitte pluginet.',
 			},
 		],
 		link: 'https://kodekassa.no/',
+		github: 'https://github.com/benjaminsjp/wordpress-plugins-docs',
 		tech: [
 			{ name: 'Next.js', priority: 1, color: '#0057ff' },
 			{ name: 'TypeScript', priority: 2, color: '#58a6e8' },

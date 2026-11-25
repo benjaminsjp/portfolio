@@ -2,7 +2,7 @@ import { ViewTransition } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, SquareArrowUpRightExit } from 'lucide-react';
 import { buttonVariants } from '@/components/ui-components/button';
 import { DirectionalTransition } from '@/components/ui-components/directional-transition';
 import { TechStack } from '@/components/ui-components/tech-stack';
@@ -81,18 +81,25 @@ export default async function ProjectPage({
 						</ViewTransition>
 						<TechStack slug={project.slug} tech={project.tech} />
 					</div>
-					<div className='flex shrink-0'>
+					<div className='flex shrink-0 gap-6 flex-wrap'>
+						<a
+							href={project.github}
+							className={cn(buttonVariants({ variant: 'link' }))}
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							GitHub <SquareArrowUpRightExit className='size-4' />
+						</a>
 						<a
 							href={project.link}
 							target='_blank'
 							className={cn(
 								buttonVariants({
 									variant: 'outline',
-									size: 'lg',
 								}),
 							)}
 						>
-							Se på nettsiden <ArrowUpRight className='size-4' />
+							Gå til nettsiden <SquareArrowUpRightExit className='size-4' />
 						</a>
 					</div>
 				</div>

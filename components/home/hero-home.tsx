@@ -1,7 +1,9 @@
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { Button, buttonVariants } from '../ui-components/button';
 import { cn } from '@/lib/utils';
+import { MailIcon } from 'lucide-react';
+import Tooltip from '../ui-components/tooltip';
 
 function HeroHome() {
 	return (
@@ -17,12 +19,21 @@ function HeroHome() {
 						viktig for meg.
 					</p>
 					<div className='flex gap-2'>
-						<Button size='lg'>Kontakt meg</Button>
+						<Tooltip content='benped2006@icloud.com'>
+							<a
+								href='mailto:benped2006@icloud.com'
+								className={cn(
+									buttonVariants({ variant: 'default', size: 'lg' }),
+								)}
+							>
+								<MailIcon /> Kontakt meg
+							</a>
+						</Tooltip>
 						<a
 							href='#projects'
 							className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}
 						>
-							Se prosjekter <ArrowDown />
+							Se prosjekter
 						</a>
 					</div>
 				</div>
