@@ -7,6 +7,7 @@ function Navigation() {
 		{ label: 'Hjem', href: '/#', showLabel: true },
 		{ label: 'Prosjekter', href: '/#projects', showLabel: true },
 		{ label: 'Om meg', href: '/#about', showLabel: true },
+		{ label: 'Ferdigheter', href: '/#skills', showLabel: true },
 		{
 			label: 'GitHub',
 			href: 'https://github.com/benjaminsjp',

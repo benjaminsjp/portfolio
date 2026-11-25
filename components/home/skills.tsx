@@ -54,7 +54,11 @@ function CategoryBody({
 	return (
 		<div className='grid w-full grid-cols-1 items-start gap-30 md:grid-cols-2'>
 			<div className='flex flex-col gap-6'>
-				<h3 className='text-6xl font-bold'>{category.name}</h3>
+				<div className='flex items-center gap-3'>
+					<Sparkle className='size-6 text-primary' />
+					<p className='text-lg text-primary uppercase'>Ferdigheter</p>
+				</div>
+				<h2 className='text-6xl font-bold'>{category.name}</h2>
 				<p className='text-xl text-muted-foreground'>{category.description}</p>
 				{progress ?
 					<SkillsProgress progress={progress} />
@@ -166,13 +170,6 @@ function Skills() {
 
 	return (
 		<section id='skills' className='scroll-mt-32'>
-			<div className='container mx-auto px-4 pt-20 pb-8'>
-				<div className='flex items-center gap-4'>
-					<Sparkle className='size-8 text-primary' />
-					<h2 className='text-4xl font-bold'>Ferdigheter</h2>
-				</div>
-			</div>
-
 			<div className='hidden container mx-auto flex-col gap-16 px-4 pb-20 motion-reduce:flex'>
 				{skillCategories.map((category) => (
 					<CategoryBody key={category.name} category={category} />
@@ -191,13 +188,13 @@ function Skills() {
 							aria-hidden
 							className='pointer-events-none absolute left-0 h-px w-px'
 							style={{
-								top: `calc(${restRaw(index) / COUNT} * (100% - 100dvh))`,
+								top: `calc(${restRaw(index) / COUNT} * (100% - 100lvh))`,
 								scrollSnapAlign: 'start',
 							}}
 						/>
 					),
 				)}
-				<div className='sticky top-0 flex h-dvh items-center bg-background'>
+				<div className='sticky top-0 flex h-lvh items-center bg-background'>
 					<div className='relative container mx-auto w-full px-4'>
 						<div className='relative'>
 							<div className='invisible' aria-hidden>

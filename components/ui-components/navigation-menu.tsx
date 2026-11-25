@@ -27,8 +27,7 @@ function getItemRoute(item: NavigationItem, pathname: string) {
 	const path =
 		hashIndex >= 0 ? item.href.slice(0, hashIndex) || '/' : item.href;
 	const isCurrentPageHash =
-		Boolean(hash) &&
-		(path === pathname || (path === '/' && pathname === '/'));
+		Boolean(hash) && (path === pathname || (path === '/' && pathname === '/'));
 
 	return { hash, isCurrentPageHash };
 }
@@ -218,21 +217,33 @@ function NavigationMenuMobile({ items }: NavigationMenuProps) {
 					open && 'min-w-56',
 				)}
 			>
-				<Button
-					ref={buttonRef}
-					type='button'
-					variant='ghost'
-					size='icon'
-					aria-expanded={open}
-					aria-controls={menuId}
-					aria-label={open ? 'Lukk meny' : 'Åpne meny'}
-					onClick={() => setOpen((isOpen) => !isOpen)}
-					className='shrink-0 bg-transparent hover:bg-transparent'
-				>
-					{open ?
-						<XIcon />
-					:	<MenuIcon />}
-				</Button>
+				<div className='flex flex-row items-center gap-2 w-full'>
+					<div
+						className={cn(
+							'items-center gap-2 mr-auto pl-4',
+							open ? 'flex' : 'hidden',
+						)}
+					>
+						<p className='text-muted-foreground uppercase text-sm font-semibold'>
+							Meny
+						</p>
+					</div>
+					<Button
+						ref={buttonRef}
+						type='button'
+						variant='ghost'
+						size='icon'
+						aria-expanded={open}
+						aria-controls={menuId}
+						aria-label={open ? 'Lukk meny' : 'Åpne meny'}
+						onClick={() => setOpen((isOpen) => !isOpen)}
+						className='shrink-0 bg-transparent hover:bg-transparent'
+					>
+						{open ?
+							<XIcon />
+						:	<MenuIcon />}
+					</Button>
+				</div>
 				<div
 					className={cn(
 						'grid min-w-0 overflow-hidden  transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
@@ -264,7 +275,7 @@ function NavigationMenuMobile({ items }: NavigationMenuProps) {
 											item={{ ...item, showLabel: true }}
 											isCurrentPageHash={isCurrentPageHash}
 											hash={hash}
-											className='w-full rounded-lg px-3 hover:bg-primary/20'
+											className='w-full rounded-lg px-3'
 										/>
 									</li>
 								);
