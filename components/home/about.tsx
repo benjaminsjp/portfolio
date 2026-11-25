@@ -25,9 +25,10 @@ function About() {
 						stor interesse for design og brukergrensesnitt. Jeg har nylig fått
 						fagbrevet som IT-utvikler med meget godt bestått.
 					</p>
-					<p className='text-base leading-relaxed max-w-2xl text-muted-foreground mb-4'>
+					<p className='text-base leading-relaxed max-w-2xl text-muted-foreground mb-6'>
 						Jeg har arbeidet med en rekke prosjekter, fra små sideprosjekter til
-						større prosjekter for kunder.
+						større prosjekter for kunder. Dette har gitt meg en god forståelse av 
+						å jobbe med prosjekter av ulike størrelser, krav og tidsfrister. 
 					</p>
 					<div className='flex gap-3 flex-wrap'>
 						<Tooltip content='benped2006@icloud.com'>

@@ -8,7 +8,7 @@ import Tooltip from '../ui-components/tooltip';
 function HeroHome() {
 	return (
 		<section id='home' className='bg-secondary/50 '>
-			<div className='container mx-auto grid grid-cols-1 items-center gap-20 px-4 pt-32 pb-20 lg:py-6 lg:grid-cols-2'>
+			<div className='container mx-auto grid grid-cols-1 items-center gap-20 px-4 pt-24 pb-20 lg:py-6 lg:grid-cols-2'>
 				<div className='flex min-w-0 flex-col gap-4'>
 					<h1 className='mb-4 max-w-3xl text-6xl leading-tight font-bold'>
 						Benjamin Pedersen
@@ -37,7 +37,7 @@ function HeroHome() {
 						</a>
 					</div>
 				</div>
-				<div className='relative min-w-0 w-full aspect-square lg:aspect-3/4 overflow-hidden rounded-xl'>
+				<div className='relative min-w-0 w-full aspect-square max-h-[900px] lg:aspect-3/4 overflow-hidden rounded-xl'>
 					<Image
 						src='/assets/images/portrait.jpg'
 						alt='Portrett av Benjamin Pedersen'

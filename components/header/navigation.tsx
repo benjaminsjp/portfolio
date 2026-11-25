@@ -1,4 +1,6 @@
-import NavigationMenu from '../ui-components/navigation-menu';
+import NavigationMenu, {
+	NavigationMenuMobile,
+} from '../ui-components/navigation-menu';
 
 function Navigation() {
 	const items = [
@@ -27,6 +29,7 @@ function Navigation() {
 	return (
 		<>
 			<NavigationMenu items={items} />
+			<NavigationMenuMobile items={items} />
 		</>
 	);
 }

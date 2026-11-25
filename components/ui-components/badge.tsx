@@ -26,8 +26,8 @@ function Badge({
 }: React.ComponentProps<'span'> & { variant?: 'default' | 'brand'; color?: string }) {
 	const brandStyle = color
 		? {
-				color,
-				backgroundColor: `color-mix(in oklch, ${color} 8%, transparent)`,
+				color: `oklch(from ${color} max(l, 0.82) c h)`,
+				backgroundColor: `color-mix(in oklch, ${color} 5%, transparent)`,
 				borderColor: `color-mix(in oklch, ${color} 22%, transparent)`,
 			}
 		: undefined;

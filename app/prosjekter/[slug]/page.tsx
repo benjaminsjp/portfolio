@@ -43,7 +43,7 @@ export default async function ProjectPage({
 
 	return (
 		<DirectionalTransition>
-			<main className='container max-w-6xl mx-auto px-4 pt-32 pb-16'>
+			<main className='container max-w-6xl mx-auto px-4 pt-24 pb-16'>
 				<Link
 					href='/'
 					transitionTypes={['nav-back']}

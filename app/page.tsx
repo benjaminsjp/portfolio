@@ -2,6 +2,7 @@ import HeroHome from '@/components/home/hero-home';
 import Projects from '@/components/home/projects';
 import { DirectionalTransition } from '@/components/ui-components/directional-transition';
 import About from '@/components/home/about';
+import Skills from '@/components/home/skills';
 
 export default function Home() {
 	return (
@@ -17,6 +18,7 @@ export default function Home() {
 					<HeroHome />
 					<Projects />
 					<About />
+					<Skills />
 				</main>
 			</div>
 		</DirectionalTransition>

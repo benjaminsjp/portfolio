@@ -31,14 +31,16 @@ const buttonVariants = cva(
 	},
 );
 
-interface ButtonProps {
-	children: React.ReactNode;
+function Button({
+	children,
+	variant,
+	size,
+	className,
+	...props
+}: React.ComponentProps<'button'> & {
 	variant?: 'default' | 'outline' | 'ghost' | 'link';
-	size?: 'default' | 'lg';
-	className?: string;
-}
-
-function Button({ children, variant, size, className, ...props }: ButtonProps) {
+	size?: 'default' | 'lg' | 'icon';
+}) {
 	return (
 		<button
 			className={cn(buttonVariants({ variant, size }), className)}
