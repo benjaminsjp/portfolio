@@ -19,6 +19,7 @@ type NavigationItem = {
 
 interface NavigationMenuProps {
 	items: NavigationItem[];
+	children?: React.ReactNode;
 }
 
 function getItemRoute(item: NavigationItem, pathname: string) {
@@ -93,7 +94,7 @@ function NavigationItemLink({
 	);
 }
 
-function NavigationMenu({ items }: NavigationMenuProps) {
+function NavigationMenu({ items, children }: NavigationMenuProps) {
 	const pathname = usePathname();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const navRef = useRef<HTMLElement>(null);
@@ -142,12 +143,12 @@ function NavigationMenu({ items }: NavigationMenuProps) {
 				ref={navRef}
 				aria-label='Hovedmeny'
 				className={cn(
-					'pointer-events-auto mx-auto w-fit rounded-xl border border-border bg-secondary/80 px-6 py-2 shadow-sm backdrop-blur-lg lg:mx-0',
+					'pointer-events-auto mx-auto w-fit rounded-xl border border-border bg-secondary/80 px-4 py-2 shadow-sm backdrop-blur-lg lg:mx-0',
 					'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
 				)}
 				style={{ transform: `translateX(${centered ? centerX : 0}px)` }}
 			>
-				<ul className='flex items-center gap-8 text-secondary-foreground'>
+				<ul className='flex items-center gap-6 text-secondary-foreground'>
 					{items.map((item) => {
 						const { hash, isCurrentPageHash } = getItemRoute(item, pathname);
 
@@ -167,13 +168,14 @@ function NavigationMenu({ items }: NavigationMenuProps) {
 							</li>
 						);
 					})}
+					{children}
 				</ul>
 			</nav>
 		</div>
 	);
 }
 
-function NavigationMenuMobile({ items }: NavigationMenuProps) {
+function NavigationMenuMobile({ items, children }: NavigationMenuProps) {
 	const pathname = usePathname();
 	const menuId = useId();
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -281,6 +283,7 @@ function NavigationMenuMobile({ items }: NavigationMenuProps) {
 								);
 							})}
 						</ul>
+						{children}
 					</nav>
 				</div>
 			</div>

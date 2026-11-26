@@ -1,6 +1,16 @@
+'use client';
+
 import NavigationMenu, {
 	NavigationMenuMobile,
 } from '../ui-components/navigation-menu';
+import { ThemePicker } from '../ui-components/theme-picker';
+import { Button } from '../ui-components/button';
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+} from '../ui-components/dropdown-menu';
+import { WandSparklesIcon } from 'lucide-react';
 
 function Navigation() {
 	const items = [
@@ -16,7 +26,7 @@ function Navigation() {
 			icon: (
 				<svg
 					viewBox='0 0 24 24'
-					fill='#ffffff'
+					fill='currentColor'
 					aria-hidden='true'
 					className='size-5'
 				>
@@ -29,8 +39,30 @@ function Navigation() {
 
 	return (
 		<>
-			<NavigationMenu items={items} />
-			<NavigationMenuMobile items={items} />
+			<NavigationMenu items={items}>
+				<li>
+					<DropdownMenu>
+						<DropdownMenuTrigger
+							render={
+								<Button variant='ghost' size='icon' aria-label='Fargetema'>
+									<WandSparklesIcon className='size-5' />
+								</Button>
+							}
+						/>
+						<DropdownMenuContent align='end'>
+							<ThemePicker
+								name='theme-picker-nav'
+								className='[&_button]:size-8'
+							/>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</li>
+			</NavigationMenu>
+			<NavigationMenuMobile items={items}>
+				<div className='border-t border-border px-1 py-1'>
+					<ThemePicker name='theme-picker-menu' />
+				</div>
+			</NavigationMenuMobile>
 		</>
 	);
 }

@@ -15,7 +15,7 @@ const buttonVariants = cva(
 			size: {
 				default: "px-4 py-2 gap-2 [&_svg:not([class*='size-'])]:size-4",
 				lg: "px-6 py-3 text-lg gap-2 [&_svg:not([class*='size-'])]:size-5",
-				icon: "p-4 [&_svg:not([class*='size-'])]:size-4",
+				icon: "w-11 h-11 [&_svg:not([class*='size-'])]:size-4",
 			},
 		},
 		defaultVariants: {

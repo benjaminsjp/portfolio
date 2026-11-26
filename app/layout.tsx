@@ -7,6 +7,7 @@ import {
 import './globals.css';
 import Navigation from '@/components/header/navigation';
 import Footer from '@/components/footer/footer';
+import { THEME_INIT_SCRIPT } from '@/lib/themes';
 
 const hankenGrotesk = Hanken_Grotesk({
 	variable: '--font-hanken-grotesk',
@@ -34,8 +35,15 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 		<html
 			lang='en'
 			data-scroll-behavior='smooth'
+			suppressHydrationWarning
 			className={`${hankenGrotesk.variable} ${newsreader.variable} h-full antialiased`}
 		>
+			<head>
+				<script
+					id='theme-init'
+					dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+				/>
+			</head>
 			<body className='min-h-full flex flex-col bg-background text-foreground'>
 				<header className='pointer-events-none fixed top-6 z-50 w-full'>
 					<Navigation />
