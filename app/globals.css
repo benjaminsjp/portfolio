@@ -48,6 +48,12 @@
 	--color-accent: var(--accent);
 	--font-sans: var(--font-hanken-grotesk);
 	--font-serif: var(--font-newsreader);
+
+	--breakpoint-sm: 40rem;
+	--breakpoint-md: 48rem;
+	--breakpoint-lg: 64rem;
+	--breakpoint-xl: 80rem;
+	--breakpoint-2xl: 80rem;
 }
 
 html {

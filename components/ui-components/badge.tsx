@@ -7,7 +7,7 @@ const badgeVariants = cva(
 		variants: {
 			variant: {
 				default: 'bg-primary/10 text-primary',
-				brand: '',
+				simple: 'bg-secondary/40 text-foreground border-border',
 			},
 			size: {
 				sm: 'text-sm',
@@ -29,10 +29,10 @@ function Badge({
 	children,
 	...props
 }: React.ComponentProps<'span'> & {
-	variant?: 'default' | 'brand';
+	variant?: 'default' | 'simple';
 	color?: string;
 }) {
-	const brandStyle =
+	const simpleStyle =
 		color ?
 			{
 				color: `oklch(from ${color} max(l, 0.82) c h)`,
@@ -44,10 +44,10 @@ function Badge({
 	return (
 		<span
 			className={cn(
-				badgeVariants({ variant: color ? 'brand' : variant }),
+				badgeVariants({ variant: color ? 'simple' : variant }),
 				className,
 			)}
-			style={{ ...brandStyle, ...style }}
+			style={{ ...simpleStyle, ...style }}
 			{...props}
 		>
 			{children}

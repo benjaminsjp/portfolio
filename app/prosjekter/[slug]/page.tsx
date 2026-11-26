@@ -82,17 +82,20 @@ export default async function ProjectPage({
 						<TechStack slug={project.slug} tech={project.tech} />
 					</div>
 					<div className='flex shrink-0 gap-6 flex-wrap'>
-						<a
+						<Link
 							href={project.github}
+							prefetch={true}
 							className={cn(buttonVariants({ variant: 'link' }))}
 							target='_blank'
 							rel='noopener noreferrer'
 						>
 							GitHub <SquareArrowUpRightExit className='size-4' />
-						</a>
-						<a
+						</Link>
+						<Link
 							href={project.link}
+							prefetch={true}
 							target='_blank'
+							rel='noopener noreferrer'
 							className={cn(
 								buttonVariants({
 									variant: 'outline',
@@ -100,7 +103,7 @@ export default async function ProjectPage({
 							)}
 						>
 							Gå til nettsiden <SquareArrowUpRightExit className='size-4' />
-						</a>
+						</Link>
 					</div>
 				</div>
 

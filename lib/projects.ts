@@ -6,6 +6,8 @@ export type TechItem = {
 
 export type Project = {
 	slug: string;
+	name: string;
+	tabDescription: string;
 	title: string;
 	image: string;
 	imageAlt: string;
@@ -22,6 +24,8 @@ export const FEATURED_TECH_LIMIT = 3;
 export const projects: Project[] = [
 	{
 		slug: 'pan-showcase',
+		name: 'Pån',
+		tabDescription: 'Oppgaver og prosjekter',
 		title: 'Pån - Få fart på oppgavelisten din.',
 		image: '/assets/images/pan-showcase.png',
 		imageAlt: 'Forhåndsvisning av Pån - Få fart på oppgavelisten din.',
@@ -62,6 +66,8 @@ export const projects: Project[] = [
 	},
 	{
 		slug: 'kodekassa-showcase',
+		name: 'Kodekassa',
+		tabDescription: 'WordPress-plugins',
 		title: 'Kodekassa - Dokumentasjon for diverse WordPress-plugins.',
 		image: '/assets/images/kodekassa-showcase.png',
 		imageAlt:

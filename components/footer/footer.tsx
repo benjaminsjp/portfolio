@@ -17,7 +17,7 @@ function Footer() {
 				</div>
 				<div className='w-full aspect-4/1 relative'>
 					<Image
-						src='/assets/svg/benjamin.svg'
+						src='/assets/svg/benjamin-wordmark-dots.svg'
 						alt='Benjamin'
 						fill
 						className='object-contain'
