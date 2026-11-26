@@ -9,6 +9,11 @@ const badgeVariants = cva(
 				default: 'bg-primary/10 text-primary',
 				brand: '',
 			},
+			size: {
+				sm: 'text-sm',
+				md: 'text-base',
+				lg: 'text-lg',
+			},
 		},
 		defaultVariants: {
 			variant: 'default',
@@ -23,14 +28,18 @@ function Badge({
 	style,
 	children,
 	...props
-}: React.ComponentProps<'span'> & { variant?: 'default' | 'brand'; color?: string }) {
-	const brandStyle = color
-		? {
+}: React.ComponentProps<'span'> & {
+	variant?: 'default' | 'brand';
+	color?: string;
+}) {
+	const brandStyle =
+		color ?
+			{
 				color: `oklch(from ${color} max(l, 0.82) c h)`,
 				backgroundColor: `color-mix(in oklch, ${color} 5%, transparent)`,
 				borderColor: `color-mix(in oklch, ${color} 22%, transparent)`,
 			}
-		: undefined;
+		:	undefined;
 
 	return (
 		<span

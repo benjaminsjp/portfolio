@@ -6,6 +6,7 @@ import {
 } from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/header/navigation';
+import Footer from '@/components/footer/footer';
 
 const hankenGrotesk = Hanken_Grotesk({
 	variable: '--font-hanken-grotesk',
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 					<Navigation />
 				</header>
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);

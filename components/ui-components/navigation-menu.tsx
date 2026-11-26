@@ -46,7 +46,7 @@ function NavigationItemLink({
 } & React.AriaAttributes) {
 	const showLabel = item.showLabel !== false;
 	const linkClassName = cn(
-		'inline-flex items-center gap-2 hover:text-primary min-h-11',
+		'inline-flex items-center gap-2 hover:text-primary min-h-11 min-w-11 md:justify-center',
 		className,
 	);
 	const ariaLabel = showLabel ? undefined : item.label;

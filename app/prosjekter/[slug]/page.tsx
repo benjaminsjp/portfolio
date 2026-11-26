@@ -125,9 +125,11 @@ export default async function ProjectPage({
 
 				<div className='max-w-3xl mx-auto flex flex-col gap-6'>
 					{/* Project Body */}
-					<div className='flex flex-col gap-6 mb-10'>
+					<div className='flex flex-col gap-6 mb-10 border-b pb-10 border-border'>
 						<h2 className='text-4xl font-bold '>Om prosjektet</h2>
-						<p className='max-w-2xl leading-relaxed'>{project.about}</p>
+						<p className='max-w-2xl leading-relaxed text-muted-foreground'>
+							{project.about}
+						</p>
 					</div>
 
 					{/* Project Features */}
@@ -137,7 +139,9 @@ export default async function ProjectPage({
 						{project.features.map((feature) => (
 							<div className='flex flex-col mb-10' key={feature.name}>
 								<h3 className='text-2xl font-bold mb-2'>{feature.name}</h3>
-								<p className='leading-relaxed'>{feature.description}</p>
+								<p className='leading-relaxed text-muted-foreground'>
+									{feature.description}
+								</p>
 							</div>
 						))}
 					</div>

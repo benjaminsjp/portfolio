@@ -1,242 +1,78 @@
-'use client';
-
-import { cn } from '@/lib/utils';
 import { Sparkle } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import Badge from '@/components/ui-components/badge';
 
 const skillCategories = [
 	{
 		name: 'Frontend',
-		skills: ['Next.js', 'Tailwind CSS', 'React', 'HTML', 'CSS', 'JavaScript'],
+		skills: [
+			'Next.js',
+			'TypeScript',
+			'Tailwind CSS',
+			'Shadcn UI',
+			'HTML',
+			'CSS',
+			'JavaScript',
+		],
 		description:
 			'Brukervennlige og responsive design for nettsider og applikasjoner.',
 	},
 	{
-		name: 'WordPress',
-		skills: ['WordPress', 'PHP', 'Plugins'],
-		description: 'Nettsider og egne plugins for kunder hos Bli Synlig.',
+		name: 'CMS og Custom Plugins',
+		skills: ['WordPress', 'Payload CMS', 'WordPress Plugins'],
+		description:
+			'WordPress og Payload CMS er mye brukt for å lage nettsider og applikasjoner. Jeg har også utviklet egne plugins for kunder hos Bli Synlig.',
+	},
+	{
+		name: 'Data og verktøy',
+		skills: [
+			'Neon Postgres',
+			'Drizzle ORM',
+			'Git og GitHub',
+			'KI - Kunstig intelligens',
+			'Notion',
+		],
+		description:
+			'Databaser, verktøy og teknologier for å lage nettsider og applikasjoner.',
 	},
 ];
 
-const FADE = 0.15;
-const RUNWAY_VH = 120;
-const COUNT = skillCategories.length;
-
-function clampProgress(value: number) {
-	return Math.min(1, Math.max(0, Math.round(value * 1000) / 1000));
-}
-
-function panelOpacity(local: number, isFirst: boolean, isLast: boolean) {
-	if (!isFirst) {
-		if (local <= -FADE) return 0;
-		if (local < FADE) return clampProgress((local + FADE) / (2 * FADE));
-	}
-
-	if (isLast || local <= 1 - FADE) return 1;
-	if (local < 1 + FADE) {
-		return clampProgress((1 + FADE - local) / (2 * FADE));
-	}
-
-	return 0;
-}
-
-function restRaw(index: number) {
-	return index <= 0 ? 0 : index + FADE;
-}
-
-function CategoryBody({
-	category,
-	progress,
-}: {
-	category: (typeof skillCategories)[number];
-	progress?: number[];
-}) {
-	return (
-		<div className='grid w-full grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-30'>
-			<div className='flex flex-col gap-6'>
-				<div className='flex items-center gap-3'>
-					<Sparkle className='size-6 text-primary' />
-					<p className='text-lg text-primary uppercase'>Ferdigheter</p>
-				</div>
-				<h2 className='text-4xl font-bold md:text-6xl'>{category.name}</h2>
-				<p className='text-xl text-muted-foreground'>{category.description}</p>
-				{progress ?
-					<SkillsProgress progress={progress} />
-				:	null}
-			</div>
-			<div className='flex flex-col flex-wrap gap-2'>
-				{category.skills.map((skill) => (
-					<div key={skill} className='flex border-b border-border py-3 md:py-6'>
-						<p className='text-2xl font-semibold md:text-3xl'>{skill}</p>
-					</div>
-				))}
-			</div>
-		</div>
-	);
-}
-
-function SkillsProgress({ progress }: { progress: number[] }) {
-	return (
-		<div aria-hidden className='flex gap-2'>
-			{skillCategories.map((category, index) => (
-				<div
-					key={category.name}
-					className='h-1.5 w-14 overflow-hidden rounded-full bg-border'
-				>
-					<div
-						className='h-full w-[calc(var(--progress)*100%)] bg-primary'
-						style={
-							{
-								'--progress': progress[index] ?? 0,
-							} as React.CSSProperties
-						}
-					/>
-				</div>
-			))}
-		</div>
-	);
-}
-
 function Skills() {
-	const trackRef = useRef<HTMLDivElement>(null);
-	const stageRef = useRef<HTMLDivElement>(null);
-	const [scrollT, setScrollT] = useState(0);
-
-	useEffect(() => {
-		const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-		const coarse = window.matchMedia('(pointer: coarse)');
-		const narrow = window.matchMedia('(max-width: 767px)');
-		const root = document.documentElement;
-		let frame = 0;
-
-		const applySnap = () => {
-			if (motion.matches || coarse.matches || narrow.matches) {
-				root.style.removeProperty('scroll-snap-type');
-				return;
-			}
-
-			root.style.setProperty('scroll-snap-type', 'y proximity');
-		};
-
-		const update = () => {
-			if (motion.matches) {
-				setScrollT(0);
-				return;
-			}
-
-			const track = trackRef.current;
-			const stage = stageRef.current;
-			if (!track || !stage) return;
-
-			const range = track.offsetHeight - stage.offsetHeight;
-			if (range <= 0) {
-				setScrollT(0);
-				return;
-			}
-
-			const next = clampProgress(-track.getBoundingClientRect().top / range);
-			setScrollT((prev) => (prev === next ? prev : next));
-		};
-
-		const onScroll = () => {
-			if (frame) return;
-			frame = requestAnimationFrame(() => {
-				frame = 0;
-				update();
-			});
-		};
-
-		applySnap();
-		update();
-		window.addEventListener('scroll', onScroll, { passive: true });
-		window.addEventListener('resize', onScroll);
-		motion.addEventListener('change', applySnap);
-		motion.addEventListener('change', update);
-		coarse.addEventListener('change', applySnap);
-		narrow.addEventListener('change', applySnap);
-
-		return () => {
-			root.style.removeProperty('scroll-snap-type');
-			cancelAnimationFrame(frame);
-			window.removeEventListener('scroll', onScroll);
-			window.removeEventListener('resize', onScroll);
-			motion.removeEventListener('change', applySnap);
-			motion.removeEventListener('change', update);
-			coarse.removeEventListener('change', applySnap);
-			narrow.removeEventListener('change', applySnap);
-		};
-	}, []);
-
-	const opacities = skillCategories.map((_, index) =>
-		panelOpacity(scrollT * COUNT - index, index === 0, index === COUNT - 1),
-	);
-	const progress = skillCategories.map((_, index) =>
-		clampProgress(scrollT * COUNT - index),
-	);
-	const layoutCategory = skillCategories.reduce((tallest, category) =>
-		category.skills.length > tallest.skills.length ? category : tallest,
-	);
-
 	return (
 		<section id='skills'>
-			<div className='hidden container mx-auto flex-col gap-16 px-4 pb-20 motion-reduce:flex'>
+			<div className='container mx-auto flex flex-col gap-10 px-4 py-20 md:gap-12'>
+				<div className='flex flex-col gap-4'>
+					<div className='flex items-center gap-3'>
+						<h2 className='text-4xl font-bold md:text-6xl'>Ferdigheter</h2>
+					</div>
+					<p className='text-xl text-muted-foreground'>
+						Her er noen av de teknologiene jeg har brukt i mine prosjekter.
+					</p>
+				</div>
 				{skillCategories.map((category) => (
-					<CategoryBody key={category.name} category={category} />
-				))}
-			</div>
-
-			<div
-				ref={trackRef}
-				className='relative motion-reduce:hidden'
-				style={{ height: `${COUNT * RUNWAY_VH}svh` }}
-			>
-				{skillCategories.map((_, index) =>
-					index === 0 ? null : (
-						<div
-							key={`snap-${index}`}
-							aria-hidden
-							className='pointer-events-none absolute left-0 h-px w-px'
-							style={{
-								top: `calc(${restRaw(index) / COUNT} * (100% - 100svh))`,
-								scrollSnapAlign: 'start',
-							}}
-						/>
-					),
-				)}
-				<div
-					ref={stageRef}
-					className='sticky top-0 flex h-svh items-start bg-background pt-20 md:items-center md:pt-0'
-				>
-					<div className='relative container mx-auto w-full px-4'>
-						<div className='relative'>
-							<div className='invisible' aria-hidden>
-								<CategoryBody category={layoutCategory} progress={progress} />
-							</div>
-							{skillCategories.map((category, index) => {
-								const opacity = opacities[index] ?? 0;
-								const inactive = opacity < 0.05;
-
-								return (
-									<div
-										key={category.name}
-										className={cn(
-											'absolute inset-0',
-											inactive && 'pointer-events-none',
-										)}
-										style={{
-											opacity,
-											zIndex: Math.round(opacity * 10),
-										}}
-										aria-hidden={inactive}
-										inert={inactive}
-									>
-										<CategoryBody category={category} progress={progress} />
-									</div>
-								);
-							})}
+					<div
+						key={category.name}
+						className='grid w-full grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-30 border-t border-border pt-12 '
+					>
+						<div className='flex max-w-lg flex-col gap-6'>
+							<h3 className='text-2xl font-bold md:text-4xl'>
+								{category.name}
+							</h3>
+							<p className='text-lg text-muted-foreground'>
+								{category.description}
+							</p>
+						</div>
+						<div className='flex flex-wrap gap-2 max-w-md'>
+							{category.skills.map((skill) => (
+								<Badge
+									className='bg-secondary/40 text-primary text-lg py-2 px-4'
+									key={skill}
+								>
+									{skill}
+								</Badge>
+							))}
 						</div>
 					</div>
-				</div>
+				))}
 			</div>
 		</section>
 	);

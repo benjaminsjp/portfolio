@@ -7,7 +7,7 @@ import Tooltip from '../ui-components/tooltip';
 
 function HeroHome() {
 	return (
-		<section id='home' className='bg-secondary/50 '>
+		<section id='home' className='bg-secondary/40 '>
 			<div className='container mx-auto grid grid-cols-1 items-center gap-20 px-4 pt-24 pb-20 lg:py-6 lg:grid-cols-2'>
 				<div className='flex min-w-0 flex-col gap-4'>
 					<h1 className='mb-4 max-w-3xl text-6xl leading-tight font-bold'>
@@ -18,7 +18,7 @@ function HeroHome() {
 						diverse apper med Next.js. Brukervennlige og stabile grensesnitt er
 						viktig for meg.
 					</p>
-					<div className='flex gap-2'>
+					<div className='flex gap-2 flex-wrap'>
 						<Tooltip content='benped2006@icloud.com'>
 							<a
 								href='mailto:benped2006@icloud.com'
