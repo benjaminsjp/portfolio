@@ -142,7 +142,7 @@ function NavigationMenu({ items }: NavigationMenuProps) {
 				ref={navRef}
 				aria-label='Hovedmeny'
 				className={cn(
-					'mx-auto w-fit rounded-xl border border-border bg-secondary/80 px-6 py-2 shadow-sm backdrop-blur-lg lg:mx-0',
+					'pointer-events-auto mx-auto w-fit rounded-xl border border-border bg-secondary/80 px-6 py-2 shadow-sm backdrop-blur-lg lg:mx-0',
 					'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
 				)}
 				style={{ transform: `translateX(${centered ? centerX : 0}px)` }}
@@ -212,7 +212,7 @@ function NavigationMenuMobile({ items }: NavigationMenuProps) {
 			<div
 				ref={rootRef}
 				className={cn(
-					'flex flex-col items-end overflow-hidden rounded-xl border border-border bg-secondary/80 shadow-sm backdrop-blur-lg',
+					'pointer-events-auto flex flex-col items-end overflow-hidden rounded-xl border border-border bg-secondary/80 shadow-sm backdrop-blur-lg',
 					'transition-[min-width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
 					open && 'min-w-56',
 				)}
