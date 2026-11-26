@@ -20,6 +20,9 @@ function ThemePicker({
 	const [theme, setTheme] = useState<ThemeId>('warm');
 
 	useEffect(() => {
+		document.documentElement.setAttribute('data-mode', 'dark');
+		document.documentElement.style.colorScheme = 'dark';
+
 		const current = document.documentElement.getAttribute('data-theme');
 		if (isThemeId(current)) {
 			setTheme(current);
@@ -85,7 +88,7 @@ function ThemePicker({
 						tabIndex={selected ? 0 : -1}
 						onClick={() => select(item.id)}
 						className={cn(
-							'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+							'inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
 							selected && 'border-2 border-ring ring-offset-0',
 						)}
 					>
