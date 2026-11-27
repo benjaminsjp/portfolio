@@ -1,8 +1,22 @@
+export type TechColor = { dark: string; light: string };
+
 export type TechItem = {
 	name: string;
 	priority: number;
-	color: string;
+	color: TechColor;
 };
+
+const TECH_COLORS = {
+	nextjs: { dark: '#0057ff', light: '#0038c7' },
+	typescript: { dark: '#58a6e8', light: '#0f6cb2' },
+	neon: { dark: '#00e599', light: '#007a56' },
+	tailwind: { dark: '#38bdf8', light: '#0369a1' },
+	shadcn: { dark: '#d4d4d8', light: '#3f3f46' },
+	drizzle: { dark: '#c5f74f', light: '#4d7c0f' },
+	vercel: { dark: '#0052c4', light: '#0050b3' },
+	mdx: { dark: '#fcb32c', light: '#b45309' },
+	shiki: { dark: '#7ebc6f', light: '#3f6b34' },
+} as const satisfies Record<string, TechColor>;
 
 export type Project = {
 	slug: string;
@@ -54,14 +68,14 @@ export const projects: Project[] = [
 		link: 'https://pan-omega-dusky.vercel.app/',
 		github: 'https://github.com/benjaminsjp/Todo-app',
 		tech: [
-			{ name: 'Next.js', priority: 1, color: '#0057ff' },
-			{ name: 'TypeScript', priority: 2, color: '#58a6e8' },
-			{ name: 'Neon Postgres', priority: 3, color: '#00e599' },
-			{ name: 'Tailwind CSS', priority: 4, color: '#38bdf8' },
-			{ name: 'Shadcn/UI', priority: 5, color: '#d4d4d8' },
-			{ name: 'Drizzle', priority: 6, color: '#c5f74f' },
-			{ name: 'Neon Auth', priority: 7, color: '#00e599' },
-			{ name: 'Vercel', priority: 8, color: '#0070f3' },
+			{ name: 'Next.js', priority: 1, color: TECH_COLORS.nextjs },
+			{ name: 'TypeScript', priority: 2, color: TECH_COLORS.typescript },
+			{ name: 'Neon Postgres', priority: 3, color: TECH_COLORS.neon },
+			{ name: 'Tailwind CSS', priority: 4, color: TECH_COLORS.tailwind },
+			{ name: 'Shadcn/UI', priority: 5, color: TECH_COLORS.shadcn },
+			{ name: 'Drizzle', priority: 6, color: TECH_COLORS.drizzle },
+			{ name: 'Neon Auth', priority: 7, color: TECH_COLORS.neon },
+			{ name: 'Vercel', priority: 8, color: TECH_COLORS.vercel },
 		],
 	},
 	{
@@ -96,13 +110,13 @@ export const projects: Project[] = [
 		link: 'https://kodekassa.no/',
 		github: 'https://github.com/benjaminsjp/wordpress-plugins-docs',
 		tech: [
-			{ name: 'Next.js', priority: 1, color: '#0057ff' },
-			{ name: 'TypeScript', priority: 2, color: '#58a6e8' },
-			{ name: 'MDX', priority: 3, color: '#fcb32c' },
-			{ name: 'Tailwind CSS', priority: 4, color: '#38bdf8' },
-			{ name: 'Shadcn/UI', priority: 5, color: '#d4d4d8' },
-			{ name: 'Shiki', priority: 6, color: '#7ebc6f' },
-			{ name: 'Vercel', priority: 7, color: '#0070f3' },
+			{ name: 'Next.js', priority: 1, color: TECH_COLORS.nextjs },
+			{ name: 'TypeScript', priority: 2, color: TECH_COLORS.typescript },
+			{ name: 'MDX', priority: 3, color: TECH_COLORS.mdx },
+			{ name: 'Tailwind CSS', priority: 4, color: TECH_COLORS.tailwind },
+			{ name: 'Shadcn/UI', priority: 5, color: TECH_COLORS.shadcn },
+			{ name: 'Shiki', priority: 6, color: TECH_COLORS.shiki },
+			{ name: 'Vercel', priority: 7, color: TECH_COLORS.vercel },
 		],
 	},
 ];

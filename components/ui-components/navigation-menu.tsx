@@ -214,7 +214,7 @@ function NavigationMenuMobile({ items, children }: NavigationMenuProps) {
 			<div
 				ref={rootRef}
 				className={cn(
-					'pointer-events-auto flex flex-col items-end overflow-hidden rounded-xl border border-border bg-secondary/80 shadow-sm backdrop-blur-lg',
+					'pointer-events-auto flex flex-col items-end overflow-hidden rounded-xl border border-border bg-background shadow-sm',
 					'transition-[min-width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
 					open && 'min-w-56',
 				)}

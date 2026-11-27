@@ -29,4 +29,4 @@ export function isModeId(value: string | null): value is ModeId {
 	return value !== null && MODE_IDS.has(value);
 }
 
-export const THEME_INIT_SCRIPT = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('${THEME_STORAGE_KEY}');if(${JSON.stringify(THEMES.map((theme) => theme.id))}.indexOf(t)!==-1)d.setAttribute('data-theme',t);d.setAttribute('data-mode','dark');d.style.colorScheme='dark';localStorage.setItem('${MODE_STORAGE_KEY}','dark')}catch(e){}})();`;
+export const THEME_INIT_SCRIPT = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('${THEME_STORAGE_KEY}');if(${JSON.stringify(THEMES.map((theme) => theme.id))}.indexOf(t)!==-1)d.setAttribute('data-theme',t);var m=localStorage.getItem('${MODE_STORAGE_KEY}');var mode=m==='light'||m==='dark'?m:'dark';d.setAttribute('data-mode',mode);d.style.colorScheme=mode}catch(e){}})();`;

@@ -20,7 +20,15 @@ function Footer() {
 						src='/assets/svg/benjamin-wordmark-dots.svg'
 						alt='Benjamin'
 						fill
-						className='object-contain'
+						sizes='100vw'
+						className='object-contain [[data-mode=light]_&]:hidden'
+					/>
+					<Image
+						src='/assets/svg/benjamin-wordmark-dots-light.svg'
+						alt='Benjamin'
+						fill
+						sizes='100vw'
+						className='hidden object-contain [[data-mode=light]_&]:block'
 					/>
 				</div>
 			</div>

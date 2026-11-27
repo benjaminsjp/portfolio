@@ -1,14 +1,35 @@
 'use client';
 
 import { useEffect, useState, type KeyboardEvent } from 'react';
+import { Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
+	isModeId,
 	isThemeId,
+	MODE_CHANGE_EVENT,
+	MODE_STORAGE_KEY,
 	THEME_CHANGE_EVENT,
 	THEME_STORAGE_KEY,
 	THEMES,
+	type ModeId,
 	type ThemeId,
 } from '@/lib/themes';
+import Tooltip from '../ui-components/tooltip';
+
+function persistAttribute(
+	attribute: 'data-theme' | 'data-mode',
+	storageKey: string,
+	eventName: string,
+	value: string,
+) {
+	document.documentElement.setAttribute(attribute, value);
+	window.dispatchEvent(new CustomEvent(eventName, { detail: value }));
+	try {
+		localStorage.setItem(storageKey, value);
+	} catch {
+		// private mode
+	}
+}
 
 function ThemePicker({
 	className,
@@ -18,90 +39,138 @@ function ThemePicker({
 	name: 'theme-picker-nav' | 'theme-picker-menu';
 }) {
 	const [theme, setTheme] = useState<ThemeId>('warm');
+	const [mode, setMode] = useState<ModeId>('dark');
 
 	useEffect(() => {
-		document.documentElement.setAttribute('data-mode', 'dark');
-		document.documentElement.style.colorScheme = 'dark';
-
-		const current = document.documentElement.getAttribute('data-theme');
-		if (isThemeId(current)) {
-			setTheme(current);
+		const currentTheme = document.documentElement.getAttribute('data-theme');
+		if (isThemeId(currentTheme)) {
+			setTheme(currentTheme);
 		}
 
-		const onChange = (event: Event) => {
+		const currentMode = document.documentElement.getAttribute('data-mode');
+		if (isModeId(currentMode)) {
+			setMode(currentMode);
+		}
+
+		const onThemeChange = (event: Event) => {
 			const id = (event as CustomEvent<string>).detail;
 			if (isThemeId(id)) {
 				setTheme(id);
 			}
 		};
 
-		window.addEventListener(THEME_CHANGE_EVENT, onChange);
-		return () => window.removeEventListener(THEME_CHANGE_EVENT, onChange);
+		const onModeChange = (event: Event) => {
+			const id = (event as CustomEvent<string>).detail;
+			if (isModeId(id)) {
+				setMode(id);
+			}
+		};
+
+		window.addEventListener(THEME_CHANGE_EVENT, onThemeChange);
+		window.addEventListener(MODE_CHANGE_EVENT, onModeChange);
+		return () => {
+			window.removeEventListener(THEME_CHANGE_EVENT, onThemeChange);
+			window.removeEventListener(MODE_CHANGE_EVENT, onModeChange);
+		};
 	}, []);
 
-	const select = (id: ThemeId) => {
+	const selectMode = (id: ModeId) => {
+		setMode(id);
+		document.documentElement.style.colorScheme = id;
+		persistAttribute('data-mode', MODE_STORAGE_KEY, MODE_CHANGE_EVENT, id);
+	};
+
+	const selectTheme = (id: ThemeId) => {
 		setTheme(id);
-		document.documentElement.setAttribute('data-theme', id);
-		window.dispatchEvent(new CustomEvent(THEME_CHANGE_EVENT, { detail: id }));
-		try {
-			localStorage.setItem(THEME_STORAGE_KEY, id);
-		} catch {
-			// private mode
+		persistAttribute('data-theme', THEME_STORAGE_KEY, THEME_CHANGE_EVENT, id);
+		if (!isModeId(document.documentElement.getAttribute('data-mode'))) {
+			selectMode('dark');
 		}
 	};
 
-	const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-		const index = THEMES.findIndex((item) => item.id === theme);
-		if (index < 0) return;
-
-		let nextIndex: number | null = null;
-		if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-			nextIndex = (index + 1) % THEMES.length;
-		} else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-			nextIndex = (index - 1 + THEMES.length) % THEMES.length;
-		}
-
-		if (nextIndex === null) return;
+	const onThemeKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+		const nextId = nextInGroup(THEMES, theme, event.key);
+		if (!nextId) return;
 		event.preventDefault();
-		select(THEMES[nextIndex].id);
+		selectTheme(nextId);
 	};
+
+	const isLight = mode === 'light';
+	const ModeIcon = isLight ? Moon : Sun;
 
 	return (
 		<div
-			role='radiogroup'
-			aria-label='Fargetema'
-			className={cn('flex items-center gap-1', className)}
+			className={cn('flex items-center', className)}
 			style={{ viewTransitionName: name }}
-			onKeyDown={onKeyDown}
 		>
-			{THEMES.map((item) => {
-				const selected = theme === item.id;
+			<div
+				role='radiogroup'
+				aria-label='Fargetema'
+				className='flex items-center gap-1'
+				onKeyDown={onThemeKeyDown}
+			>
+				{THEMES.map((item) => {
+					const selected = theme === item.id;
 
-				return (
-					<button
-						key={item.id}
-						type='button'
-						role='radio'
-						aria-checked={selected}
-						aria-label={item.label}
-						title={item.label}
-						tabIndex={selected ? 0 : -1}
-						onClick={() => select(item.id)}
-						className={cn(
-							'inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-							selected && 'border-2 border-ring ring-offset-0',
-						)}
-					>
-						<span
-							aria-hidden
-							className='size-5 rounded-full'
-							style={{ backgroundColor: item.swatch }}
-						/>
-					</button>
-				);
-			})}
+					return (
+						<button
+							key={item.id}
+							type='button'
+							role='radio'
+							aria-checked={selected}
+							aria-label={item.label}
+							title={item.label}
+							tabIndex={selected ? 0 : -1}
+							onClick={() => selectTheme(item.id)}
+							className={cn(
+								'inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+								selected && 'border-2 border-ring ring-offset-0',
+							)}
+						>
+							<span
+								aria-hidden
+								className='size-5 rounded-full'
+								style={{ backgroundColor: item.swatch }}
+							/>
+						</button>
+					);
+				})}
+			</div>
+			<div className='flex bg-secondary w-px h-8 mx-1' />
+			<Tooltip content={isLight ? 'Bytt til mørk modus' : 'Bytt til lys modus'}>
+				<button
+					type='button'
+					role='switch'
+					aria-checked={isLight}
+					aria-label={isLight ? 'Bytt til mørk modus' : 'Bytt til lys modus'}
+					title={isLight ? 'Bytt til mørk modus' : 'Bytt til lys modus'}
+					onClick={() => selectMode(isLight ? 'dark' : 'light')}
+					className='inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+				>
+					<ModeIcon aria-hidden className='size-4' />
+				</button>
+			</Tooltip>
 		</div>
 	);
+}
+
+function nextInGroup<T extends { id: string }>(
+	items: readonly T[],
+	current: T['id'],
+	key: string,
+): T['id'] | null {
+	const index = items.findIndex((item) => item.id === current);
+	if (index < 0) return null;
+
+	if (key === 'ArrowRight' || key === 'ArrowDown') {
+		return items[(index + 1) % items.length].id;
+	}
+
+	if (key === 'ArrowLeft' || key === 'ArrowUp') {
+		return items[(index - 1 + items.length) % items.length].id;
+	}
+
+	return null;
 }
 
 export { ThemePicker };

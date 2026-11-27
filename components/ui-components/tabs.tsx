@@ -23,9 +23,9 @@ const tabsVariants = {
 	},
 	vertical: {
 		root: 'flex lg:flex-row flex-col items-start gap-4',
-		list: 'flex flex-row lg:flex-col shrink-0 gap-2 lg:border-l-2 lg:border-b-0 border-b-2 border-border',
+		list: 'flex flex-row lg:flex-col shrink-0 gap-6 lg:gap-2 lg:border-l-2 lg:border-b-0 border-b-2 border-border',
 		trigger:
-			'lg:border-l-2 lg:border-b-0 border-b-2 lg:-ml-0.5 lg:mb-0 -mb-0.5 px-6 py-4',
+			'lg:border-l-2 lg:border-b-0 border-b-2 lg:-ml-0.5 lg:mb-0 -mb-0.5 lg:px-6 py-4',
 		panel: 'min-w-0 flex-1 w-full',
 	},
 } as const;
