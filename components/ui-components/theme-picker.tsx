@@ -4,6 +4,8 @@ import { useEffect, useState, type KeyboardEvent } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
+	DEFAULT_MODE,
+	DEFAULT_THEME,
 	isModeId,
 	isThemeId,
 	MODE_CHANGE_EVENT,
@@ -38,8 +40,8 @@ function ThemePicker({
 	className?: string;
 	name: 'theme-picker-nav' | 'theme-picker-menu';
 }) {
-	const [theme, setTheme] = useState<ThemeId>('warm');
-	const [mode, setMode] = useState<ModeId>('dark');
+	const [theme, setTheme] = useState<ThemeId>(DEFAULT_THEME);
+	const [mode, setMode] = useState<ModeId>(DEFAULT_MODE);
 
 	useEffect(() => {
 		const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -75,6 +77,15 @@ function ThemePicker({
 	}, []);
 
 	const selectMode = (id: ModeId) => {
+		if (!isThemeId(document.documentElement.getAttribute('data-theme'))) {
+			setTheme(DEFAULT_THEME);
+			persistAttribute(
+				'data-theme',
+				THEME_STORAGE_KEY,
+				THEME_CHANGE_EVENT,
+				DEFAULT_THEME,
+			);
+		}
 		setMode(id);
 		document.documentElement.style.colorScheme = id;
 		persistAttribute('data-mode', MODE_STORAGE_KEY, MODE_CHANGE_EVENT, id);
@@ -84,7 +95,7 @@ function ThemePicker({
 		setTheme(id);
 		persistAttribute('data-theme', THEME_STORAGE_KEY, THEME_CHANGE_EVENT, id);
 		if (!isModeId(document.documentElement.getAttribute('data-mode'))) {
-			selectMode('dark');
+			selectMode(DEFAULT_MODE);
 		}
 	};
 

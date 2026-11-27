@@ -18,6 +18,9 @@ export const MODES = [
 export type ThemeId = (typeof THEMES)[number]['id'];
 export type ModeId = (typeof MODES)[number]['id'];
 
+export const DEFAULT_THEME: ThemeId = 'warm';
+export const DEFAULT_MODE: ModeId = 'dark';
+
 const THEME_IDS = new Set<string>(THEMES.map((theme) => theme.id));
 const MODE_IDS = new Set<string>(MODES.map((mode) => mode.id));
 
@@ -29,4 +32,4 @@ export function isModeId(value: string | null): value is ModeId {
 	return value !== null && MODE_IDS.has(value);
 }
 
-export const THEME_INIT_SCRIPT = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('${THEME_STORAGE_KEY}');if(${JSON.stringify(THEMES.map((theme) => theme.id))}.indexOf(t)!==-1)d.setAttribute('data-theme',t);var m=localStorage.getItem('${MODE_STORAGE_KEY}');var mode=m==='light'||m==='dark'?m:'dark';d.setAttribute('data-mode',mode);d.style.colorScheme=mode}catch(e){}})();`;
+export const THEME_INIT_SCRIPT = `(function(){try{var d=document.documentElement;var themes=${JSON.stringify(THEMES.map((theme) => theme.id))};var t=localStorage.getItem('${THEME_STORAGE_KEY}');if(themes.indexOf(t)===-1)t='${DEFAULT_THEME}';d.setAttribute('data-theme',t);var m=localStorage.getItem('${MODE_STORAGE_KEY}');var mode=m==='light'||m==='dark'?m:'${DEFAULT_MODE}';d.setAttribute('data-mode',mode);d.style.colorScheme=mode}catch(e){}})();`;

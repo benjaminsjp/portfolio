@@ -7,7 +7,7 @@ import {
 import './globals.css';
 import Navigation from '@/components/header/navigation';
 import Footer from '@/components/footer/footer';
-import { THEME_INIT_SCRIPT } from '@/lib/themes';
+import { DEFAULT_MODE, DEFAULT_THEME, THEME_INIT_SCRIPT } from '@/lib/themes';
 
 const hankenGrotesk = Hanken_Grotesk({
 	variable: '--font-hanken-grotesk',
@@ -34,6 +34,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 	return (
 		<html
 			lang='en'
+			data-theme={DEFAULT_THEME}
+			data-mode={DEFAULT_MODE}
 			data-scroll-behavior='smooth'
 			suppressHydrationWarning
 			className={`${hankenGrotesk.variable} ${newsreader.variable} h-full antialiased`}

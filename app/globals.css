@@ -40,7 +40,8 @@
 	--ring: oklch(0.82 0.12 75);
 }
 
-[data-theme='warm'][data-mode='light'] {
+[data-theme='warm'][data-mode='light'],
+html[data-mode='light'] {
 	--background: oklch(0.985 0.004 80);
 	--foreground: oklch(0.22 0.008 70);
 
